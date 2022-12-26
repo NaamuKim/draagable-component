@@ -17,3 +17,6 @@
   margin: 0 auto;
   position: relative;
 }
+.draggable-area__header {
+  position: absolute;
+}

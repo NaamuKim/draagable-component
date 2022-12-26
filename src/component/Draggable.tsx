@@ -39,6 +39,9 @@ function Draggable({ boxPosition, setBoxPosition }: DraggableProps) {
   }, []);
   return (
     <div style={areaSize} className='draggable-area'>
+      <h4 className='draggable-area__header' data-cy='area-size'>
+        width: {areaSize.width} height: {areaSize.height}
+      </h4>
       <Box boxPosition={boxPosition} setBoxPosition={setBoxPosition} />
     </div>
   );

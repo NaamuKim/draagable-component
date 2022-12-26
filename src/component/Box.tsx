@@ -52,7 +52,7 @@ function Box({ boxPosition, setBoxPosition }: BoxProps) {
   };
 
   return (
-    <div ref={boxRef} style={boxPosition} className='box' draggable={true} onDragStart={startDrag}>
+    <div data-cy='box' ref={boxRef} style={boxPosition} className='box' draggable={true} onDragStart={startDrag}>
       Drag Me!
     </div>
   );
