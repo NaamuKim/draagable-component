@@ -4,6 +4,6 @@ import App from './App';
 
 test('is there box', () => {
   render(<App />);
-  const linkElement = screen.getByText(/box/i);
+  const linkElement = screen.getByText(/drag me/i);
   expect(linkElement).toBeInTheDocument();
 });

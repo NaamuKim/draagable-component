@@ -1,15 +1,31 @@
-import React, { DragEvent, useEffect, useRef, useState } from 'react';
+import React, { DragEvent, useEffect, useRef } from 'react';
 
-function Box() {
-  const [boxPosition, setBoxPosition] = useState({ top: '0', left: '0' });
+interface BoxProps {
+  boxPosition: { top: string; left: string };
+  setBoxPosition: React.Dispatch<
+    React.SetStateAction<{
+      top: string;
+      left: string;
+    }>
+  >;
+}
+
+function Box({ boxPosition, setBoxPosition }: BoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const moveMouse = (e: MouseEvent) => {
       const boxWidth = boxRef.current?.offsetWidth;
       const boxHeight = boxRef.current?.offsetHeight;
-      const left = e.pageX - (boxWidth as number) / 2 + 'px';
-      const top = e.pageY - (boxHeight as number) / 2 + 'px';
+      const left = e.clientX - (boxWidth as number) / 2 + 'px';
+      const top = e.clientY - (boxHeight as number) / 2 + 'px';
+      const right = e.clientX + (boxWidth as number) / 2;
+      const bottom = e.clientY + (boxHeight as number) / 2;
+      const isOverClientWidth = Number(left.slice(0, -2)) < 0 || right > window.innerWidth;
+      const isOverClientHeight = Number(top.slice(0, -2)) < 0 || bottom > window.innerHeight;
+      if (isOverClientWidth || isOverClientHeight) {
+        return;
+      }
       setBoxPosition({ left, top });
     };
 
@@ -37,7 +53,7 @@ function Box() {
 
   return (
     <div ref={boxRef} style={boxPosition} className='box' draggable={true} onDragStart={startDrag}>
-      Box
+      Drag Me!
     </div>
   );
 }
